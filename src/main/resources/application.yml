@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: one
+  profiles:
+    default: development
+
+demo:
+  data:
+    sqlite-path: data/squad-demo.sqlite3
+    json-path: data/source/squad-dev-v2.0.json

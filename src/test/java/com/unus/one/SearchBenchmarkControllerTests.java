@@ -28,7 +28,7 @@ class SearchBenchmarkControllerTests {
 	void compareEndpointReturnsEquivalentMatchesAndTimingSamples() throws Exception {
 		MvcResult result = mockMvc.perform(get("/api/benchmark/compare")
 					.param("q", "Normandy")
-					.param("runs", "2"))
+					.param("runCounts", "2"))
 				.andExpect(status().isOk())
 				.andReturn();
 
@@ -37,7 +37,7 @@ class SearchBenchmarkControllerTests {
 		JsonNode jsonParser = response.path("jsonParser");
 
 		assertEquals("Normandy", response.path("query").asText());
-		assertEquals(2, response.path("runs").asInt());
+		assertEquals(2, response.path("runCounts").asInt());
 		assertTrue(sqlite.path("matchCount").asLong() > 0);
 		assertEquals(sqlite.path("matchCount").asLong(), jsonParser.path("matchCount").asLong());
 		assertEquals(2, sqlite.path("samplesMicros").size());
@@ -57,12 +57,12 @@ class SearchBenchmarkControllerTests {
 	void compareEndpointRejectsRunCountsOutsideAllowedRange() throws Exception {
 		mockMvc.perform(get("/api/benchmark/compare")
 					.param("q", "Normandy")
-					.param("runs", "0"))
+					.param("runCounts", "0"))
 				.andExpect(status().isBadRequest());
 
 		mockMvc.perform(get("/api/benchmark/compare")
 					.param("q", "Normandy")
-					.param("runs", "101"))
+					.param("runCounts", "101"))
 				.andExpect(status().isBadRequest());
 	}
 }
