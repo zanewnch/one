@@ -40,6 +40,9 @@ blockquote { margin:1.2em 0; padding:.3em 1em; border-left:4px solid var(--accen
 <h2 id="_1">專案定位</h2>
 <p>這是一個用來展示高併發系統設計與效能優化能力的作品集專案。業務只做一件事：<strong>使用者對一份知識庫提問，服務找出相關資料並回傳附來源的答案。</strong></p>
 <p>業務規則保持簡單，工程挑戰放在大量問題同時進入時，如何有效檢索、控制模型服務負載、降低延遲與成本，並讓系統在依賴服務變慢或失效時維持穩定。</p>
+<h2 id="guided-assignments">引導式作業</h2>
+<p>依照<a href="learning/README.md">作業路線與協作方式</a>，由你實作程式，Codex 提供題目、提示及 review。每份作業包含情境與目標、學習重點、任務範圍、步驟提示、驗收條件與方法說明；一次只展開一份詳細作業。</p>
+<p>從<a href="learning/assignments/001-read-squad.md">作業 001 讀取 SQuAD JSON 與建立文章型別</a>開始，接續目前尚未實作的 <code>ArticleRepositoryImpl.readArticle()</code>。交付程式、測試結果與方法說明後，再進入下一份作業。文件中的驗收條件是待完成的要求，不代表功能已交付。</p>
 <h2 id="_2">業務範圍</h2>
 <ul>
 <li>系統管理一份預先建立的知識庫；文件切分後以 SQLite 保存，第一版使用 SQLite FTS 全文檢索，避免一開始引入獨立向量資料庫。</li>
@@ -83,7 +86,7 @@ blockquote { margin:1.2em 0; padding:.3em 1em; border-left:4px solid var(--accen
 </tr>
 <tr>
 <td><code>GET</code></td>
-<td><code>/api/benchmark/compare?q=Normandy&amp;runs=10</code></td>
+<td><code>/api/benchmark/compare?q=Normandy&amp;runCounts=10</code></td>
 <td>比較 SQLite 查詢與每次重新解析 JSON 的搜尋時間</td>
 </tr>
 </tbody>
@@ -191,16 +194,16 @@ src/test/java/com/unus/one/ # 測試程式
 <p>資料來源、授權、歸屬資訊及重建方式見 <a href="data/README.md"><code>data/README.md</code></a>；匯入程式為 <a href="scripts/import_squad_demo.py"><code>scripts/import_squad_demo.py</code></a>。資料集採 CC BY-SA 4.0，重新散布時須保留歸屬與相同授權。
 目前 benchmark API 已讀取 SQLite demo DB 與來源 JSON；RAG 問答 API 尚未實作。</p>
 <h3 id="api_1">搜尋效能比較 API</h3>
-<p>呼叫 <code>GET /api/benchmark/compare?q=Normandy&amp;runs=10</code>，會透過同一個 Controller／Service 流程比較兩種搜尋方式，回傳匹配段落數、前 5 筆結果預覽、每輪耗時，以及平均值、中位數、最小值和最大值（微秒）。<code>runs</code> 預設為 10，允許 1 到 100。</p>
+<p>呼叫 <code>GET /api/benchmark/compare?q=Normandy&amp;runCounts=10</code>，會透過同一個 Controller／Service 流程比較兩種搜尋方式，回傳匹配段落數、前 5 筆結果預覽、每輪耗時，以及平均值、中位數、最小值和最大值（微秒）。<code>runCounts</code> 預設為 10，允許 1 到 100。</p>
 <ul>
 <li><strong>SQLite JDBC</strong>：每輪建立連線，對 <code>chunks.content</code> 做不分大小寫的子字串掃描，並連接文件標題。</li>
 <li><strong>JSON parser</strong>：每輪重新讀取並解析 SQuAD JSON，再逐段掃描 <code>context</code>。</li>
 <li>每種方式各做一次不計時暖身，計時順序逐輪交替。測量包含資料讀取和搜尋，不包含 HTTP 回應序列化；這是本機 demo 的簡單量測，不能直接當成正式環境的效能結論。</li>
 </ul>
 <p>成功回應中的 <code>sqlite</code> 和 <code>jsonParser</code> 會提供相同格式的結果，便於對照。例如：</p>
-<pre><code class="language-text">GET http://localhost:8080/api/benchmark/compare?q=Normandy&amp;runs=10
+<pre><code class="language-text">GET http://localhost:8080/api/benchmark/compare?q=Normandy&amp;runCounts=10
 </code></pre>
-<p>測試會透過 MockMvc 呼叫此 API，檢查兩種方式的結果數一致、樣本耗時有回傳，以及空白查詢和超出範圍的 runs 會被拒絕。測試不斷言哪一種一定比較快，因為執行環境和檔案快取會影響耗時。</p>
+<p>測試會透過 MockMvc 呼叫此 API，檢查兩種方式的結果數一致、樣本耗時有回傳，以及空白查詢和超出範圍的 runCounts 會被拒絕。測試不斷言哪一種一定比較快，因為執行環境和檔案快取會影響耗時。</p>
 <h2 id="_7">演進架構</h2>
 <h3 id="_8">里程碑一：建立正確基線</h3>
 <p>以 Spring Boot 提供問答 API，使用 SQLite + ORM 保存文件與片段，透過 FTS 全文檢索找出候選內容，再串接一個生成模型。先固定文件集、切塊方式、檢索參數與模型版本，量測單請求流程及答案引用品質。</p>

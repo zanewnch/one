@@ -6,6 +6,12 @@
 
 業務規則保持簡單，工程挑戰放在大量問題同時進入時，如何有效檢索、控制模型服務負載、降低延遲與成本，並讓系統在依賴服務變慢或失效時維持穩定。
 
+## 引導式作業
+
+依照[作業路線與協作方式](learning/README.md)，由你實作程式，Codex 提供題目、提示及 review。每份作業包含情境與目標、學習重點、任務範圍、步驟提示、驗收條件與方法說明；一次只展開一份詳細作業。
+
+從[作業 001 讀取 SQuAD JSON 與建立文章型別](learning/assignments/001-read-squad.md)開始，接續目前尚未實作的 `ArticleRepositoryImpl.readArticle()`。交付程式、測試結果與方法說明後，再進入下一份作業。文件中的驗收條件是待完成的要求，不代表功能已交付。
+
 ## 業務範圍
 
 - 系統管理一份預先建立的知識庫；文件切分後以 SQLite 保存，第一版使用 SQLite FTS 全文檢索，避免一開始引入獨立向量資料庫。
@@ -29,7 +35,7 @@
 | `POST` | `/api/questions` | 提問並取得答案；可選擇串流回覆 |
 | `GET` | `/api/requests/{requestId}` | 查詢排隊中或處理中的請求狀態 |
 | `GET` | `/actuator/health` | 健康檢查 |
-| `GET` | `/api/benchmark/compare?q=Normandy&runs=10` | 比較 SQLite 查詢與每次重新解析 JSON 的搜尋時間 |
+| `GET` | `/api/benchmark/compare?q=Normandy&runCounts=10` | 比較 SQLite 查詢與每次重新解析 JSON 的搜尋時間 |
 
 同步處理時回傳答案、引用和耗時資訊。若採佇列模式，提交後回傳 `202 Accepted` 與 `requestId`，請求狀態為 `QUEUED`、`PROCESSING`、`COMPLETED` 或 `FAILED`。過載時回傳一致的繁忙錯誤或排隊結果，不讓請求無限制堆積。
 
@@ -85,7 +91,7 @@ src/test/java/com/unus/one/ # 測試程式
 
 ### 搜尋效能比較 API
 
-呼叫 `GET /api/benchmark/compare?q=Normandy&runs=10`，會透過同一個 Controller／Service 流程比較兩種搜尋方式，回傳匹配段落數、前 5 筆結果預覽、每輪耗時，以及平均值、中位數、最小值和最大值（微秒）。`runs` 預設為 10，允許 1 到 100。
+呼叫 `GET /api/benchmark/compare?q=Normandy&runCounts=10`，會透過同一個 Controller／Service 流程比較兩種搜尋方式，回傳匹配段落數、前 5 筆結果預覽、每輪耗時，以及平均值、中位數、最小值和最大值（微秒）。`runCounts` 預設為 10，允許 1 到 100。
 
 - **SQLite JDBC**：每輪建立連線，對 `chunks.content` 做不分大小寫的子字串掃描，並連接文件標題。
 - **JSON parser**：每輪重新讀取並解析 SQuAD JSON，再逐段掃描 `context`。
@@ -94,10 +100,10 @@ src/test/java/com/unus/one/ # 測試程式
 成功回應中的 `sqlite` 和 `jsonParser` 會提供相同格式的結果，便於對照。例如：
 
 ```text
-GET http://localhost:8080/api/benchmark/compare?q=Normandy&runs=10
+GET http://localhost:8080/api/benchmark/compare?q=Normandy&runCounts=10
 ```
 
-測試會透過 MockMvc 呼叫此 API，檢查兩種方式的結果數一致、樣本耗時有回傳，以及空白查詢和超出範圍的 runs 會被拒絕。測試不斷言哪一種一定比較快，因為執行環境和檔案快取會影響耗時。
+測試會透過 MockMvc 呼叫此 API，檢查兩種方式的結果數一致、樣本耗時有回傳，以及空白查詢和超出範圍的 runCounts 會被拒絕。測試不斷言哪一種一定比較快，因為執行環境和檔案快取會影響耗時。
 ## 演進架構
 
 ### 里程碑一：建立正確基線
