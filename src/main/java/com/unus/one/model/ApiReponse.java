@@ -1,4 +1,4 @@
-package com.unus.one.model;
+package com.flow.one.model;
 
 public class ApiReponse<T> {
   public boolean success;

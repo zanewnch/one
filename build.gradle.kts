@@ -4,7 +4,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "com.unus"
+group = "com.flow"
 version = "0.0.1-SNAPSHOT"
 description = "Basic Spring Boot template"
 

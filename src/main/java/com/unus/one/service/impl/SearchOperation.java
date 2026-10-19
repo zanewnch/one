@@ -1,10 +1,10 @@
-package com.unus.one.service.impl;
+package com.flow.one.service.impl;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.unus.one.dto.Snapshot;
+import com.flow.one.dto.Snapshot;
 
 /**
  * 搜尋效能比較中可執行的一次搜尋操作。

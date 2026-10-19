@@ -1,9 +1,9 @@
-package com.unus.one.repository;
+package com.flow.one.repository;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import com.unus.one.dto.SearchBenchmarkResponse.SearchPreview;
+import com.flow.one.dto.SearchBenchmarkResponse.SearchPreview;
 
 public interface SearchBenchmarkRepository {
 	/**

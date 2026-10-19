@@ -1,4 +1,4 @@
-package com.unus.one.model;
+package com.flow.one.model;
 
 public class ApiError {
   public Integer code;
