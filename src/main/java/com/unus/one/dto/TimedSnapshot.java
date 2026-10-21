@@ -1,4 +1,4 @@
-package com.unus.one.dto;
+package com.flow.one.dto;
 
 /**
  * 儲存搜尋結果快照與操作耗時。

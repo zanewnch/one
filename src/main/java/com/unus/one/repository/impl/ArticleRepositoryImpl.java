@@ -1,6 +1,6 @@
-package com.unus.one.repository.impl;
+package com.flow.one.repository.impl;
 
-import com.unus.one.repository.ArticleReposiotry;
+import com.flow.one.repository.ArticleReposiotry;
 
 public class ArticleRepositoryImpl implements ArticleReposiotry {
 

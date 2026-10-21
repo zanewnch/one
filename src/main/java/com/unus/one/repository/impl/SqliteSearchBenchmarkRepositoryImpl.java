@@ -1,4 +1,4 @@
-package com.unus.one.repository.impl;
+package com.flow.one.repository.impl;
 
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.unus.one.dto.SearchBenchmarkResponse.SearchPreview;
-import com.unus.one.repository.SearchBenchmarkRepository;
-import com.unus.one.repository.SearchBenchmarkRepository.SearchSnapshot;
+import com.flow.one.dto.SearchBenchmarkResponse.SearchPreview;
+import com.flow.one.repository.SearchBenchmarkRepository;
+import com.flow.one.repository.SearchBenchmarkRepository.SearchSnapshot;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 

@@ -41,7 +41,7 @@
 
 ## 程式資料夾架構
 
-Java 程式使用 `com.unus.one` 作為 package 根目錄，依技術層分資料夾。這和 C# 常見的 Controller → Service → Repository 分層相近：
+Java 程式使用 `com.flow.one` 作為 package 根目錄，依技術層分資料夾。這和 C# 常見的 Controller → Service → Repository 分層相近：
 
 ```text
 src/main/java/com/unus/one/
@@ -59,7 +59,7 @@ src/test/java/com/unus/one/ # 測試程式
 
 請求流程為 `HTTP request → Controller → Service → Repository → Service → Controller → HTTP response`。例如 Controller 以 `@GetMapping` 對應 GET 路徑，呼叫 Service 執行問答流程，再將結果整理成 DTO 回傳。Service 負責協調檢索與生成等工作，Repository 封裝知識資料存取。
 
-目前 `OneApplication` 與既有 `HealthController` 位於 `com.unus.one` 根 package；新功能依上述分層放入對應資料夾。
+目前 `OneApplication` 與既有 `HealthController` 位於 `com.flow.one` 根 package；新功能依上述分層放入對應資料夾。
 ## RAG 示範資料集
 
 `data/squad-demo.sqlite3` 是由 Stanford SQuAD 2.0 官方 dev split 匯入的 SQLite 示範資料庫，包含 35 篇文件、1,204 個段落 chunks、11,873 個問題。資料集同時包含無法由段落回答的問題，可用來練習檢索與拒答。

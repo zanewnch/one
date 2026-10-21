@@ -1,4 +1,4 @@
-package com.unus.one.repository;
+package com.flow.one.repository;
 
 public interface ArticleReposiotry {
   /**

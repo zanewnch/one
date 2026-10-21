@@ -1,4 +1,4 @@
-package com.unus.one.dto;
+package com.flow.one.dto;
 
 import java.util.List;
 

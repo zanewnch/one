@@ -1,9 +1,9 @@
-package com.unus.one.service;
+package com.flow.one.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.unus.one.dto.SearchBenchmarkResponse;
+import com.flow.one.dto.SearchBenchmarkResponse;
 
 public interface SearchBenchmarkService {
 	/**

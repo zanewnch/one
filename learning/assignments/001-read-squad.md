@@ -33,7 +33,7 @@ RAG 需要先取得知識內容，才能搜尋片段並整理答案。SQuAD 將�
 
 預設來源是 [`data/source/squad-dev-v2.0.json`](../../data/source/squad-dev-v2.0.json)。從 `resume/one` 執行時，相對路徑以該目錄為準；使用既有的 `demo.data.json-path` 設定，不在方法內寫死個人電腦的絕對路徑。
 
-在 `com.unus.one.model` 建立以下兩個 record：
+在 `com.flow.one.model` 建立以下兩個 record：
 
 | 型別 | 欄位 | 意義 |
 | --- | --- | --- |
@@ -162,7 +162,7 @@ RAG 需要先取得知識內容，才能搜尋片段並整理答案。SQuAD 將�
 在 PowerShell 從 `C:\Users\zanew\Documents\GitHub\unus\resume\one` 執行：
 
 ```powershell
-.\gradlew.bat test --tests "com.unus.one.repository.impl.ArticleRepositoryImplTests" --console=plain
+.\gradlew.bat test --tests "com.flow.one.repository.impl.ArticleRepositoryImplTests" --console=plain
 ```
 
 本題通過後，執行既有測試確認整合未退步：

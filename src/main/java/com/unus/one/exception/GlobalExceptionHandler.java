@@ -1,4 +1,4 @@
-package com.unus.one.exception;
+package com.flow.one.exception;
 
 import java.io.IOException;
 import java.net.URI;

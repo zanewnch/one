@@ -1,8 +1,8 @@
-package com.unus.one.dto;
+package com.flow.one.dto;
 
 import java.util.List;
 
-import com.unus.one.dto.SearchBenchmarkResponse.SearchPreview;
+import com.flow.one.dto.SearchBenchmarkResponse.SearchPreview;
 
 /**
  * 搜尋操作回傳的命中數與預覽結果。
