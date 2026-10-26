@@ -44,7 +44,7 @@
 Java 程式使用 `com.flow.one` 作為 package 根目錄，依技術層分資料夾。這和 C# 常見的 Controller → Service → Repository 分層相近：
 
 ```text
-src/main/java/com/unus/one/
+src/main/java/com/flow/one/
 ├── config/       # 共用設定
 ├── controller/   # HTTP 路由與請求處理，例如 @GetMapping
 ├── service/      # 問答流程與應用程式邏輯
@@ -54,7 +54,7 @@ src/main/java/com/unus/one/
 └── exception/    # 例外與錯誤處理
 
 src/main/resources/ # application.properties、templates/、static/ 等資源
-src/test/java/com/unus/one/ # 測試程式
+src/test/java/com/flow/one/ # 測試程式
 ```
 
 請求流程為 `HTTP request → Controller → Service → Repository → Service → Controller → HTTP response`。例如 Controller 以 `@GetMapping` 對應 GET 路徑，呼叫 Service 執行問答流程，再將結果整理成 DTO 回傳。Service 負責協調檢索與生成等工作，Repository 封裝知識資料存取。

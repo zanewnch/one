@@ -94,7 +94,7 @@ blockquote { margin:1.2em 0; padding:.3em 1em; border-left:4px solid var(--accen
 <p>同步處理時回傳答案、引用和耗時資訊。若採佇列模式，提交後回傳 <code>202 Accepted</code> 與 <code>requestId</code>，請求狀態為 <code>QUEUED</code>、<code>PROCESSING</code>、<code>COMPLETED</code> 或 <code>FAILED</code>。過載時回傳一致的繁忙錯誤或排隊結果，不讓請求無限制堆積。</p>
 <h2 id="_4">程式資料夾架構</h2>
 <p>Java 程式使用 <code>com.flow.one</code> 作為 package 根目錄，依技術層分資料夾。這和 C# 常見的 Controller → Service → Repository 分層相近：</p>
-<pre><code class="language-text">src/main/java/com/unus/one/
+<pre><code class="language-text">src/main/java/com/flow/one/
 ├── config/       # 共用設定
 ├── controller/   # HTTP 路由與請求處理，例如 @GetMapping
 ├── service/      # 問答流程與應用程式邏輯
@@ -104,7 +104,7 @@ blockquote { margin:1.2em 0; padding:.3em 1em; border-left:4px solid var(--accen
 └── exception/    # 例外與錯誤處理
 
 src/main/resources/ # application.properties、templates/、static/ 等資源
-src/test/java/com/unus/one/ # 測試程式
+src/test/java/com/flow/one/ # 測試程式
 </code></pre>
 <p>請求流程為 <code>HTTP request → Controller → Service → Repository → Service → Controller → HTTP response</code>。例如 Controller 以 <code>@GetMapping</code> 對應 GET 路徑，呼叫 Service 執行問答流程，再將結果整理成 DTO 回傳。Service 負責協調檢索與生成等工作，Repository 封裝知識資料存取。</p>
 <p>目前 <code>OneApplication</code> 與既有 <code>HealthController</code> 位於 <code>com.flow.one</code> 根 package；新功能依上述分層放入對應資料夾。</p>

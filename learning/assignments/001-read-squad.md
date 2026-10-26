@@ -57,10 +57,10 @@ RAG 需要先取得知識內容，才能搜尋片段並整理答案。SQuAD 將�
 
 ### 會修改的位置
 
-- [`ArticleReposiotry.java`](../../src/main/java/com/unus/one/repository/ArticleReposiotry.java)：回傳與例外契約。
-- [`ArticleRepositoryImpl.java`](../../src/main/java/com/unus/one/repository/impl/ArticleRepositoryImpl.java)：路徑、注入、讀取、結構檢查與模型轉換。
-- `src/main/java/com/unus/one/model/`：新增 `Article`、`Paragraph`。
-- `src/test/java/com/unus/one/repository/impl/ArticleRepositoryImplTests.java`：新增作業測試。
+- [`ArticleReposiotry.java`](../../src/main/java/com/flow/one/repository/ArticleReposiotry.java)：回傳與例外契約。
+- [`ArticleRepositoryImpl.java`](../../src/main/java/com/flow/one/repository/impl/ArticleRepositoryImpl.java)：路徑、注入、讀取、結構檢查與模型轉換。
+- `src/main/java/com/flow/one/model/`：新增 `Article`、`Paragraph`。
+- `src/test/java/com/flow/one/repository/impl/ArticleRepositoryImplTests.java`：新增作業測試。
 
 新建構式、record 與方法使用繁體中文 Javadoc，依參數、回傳值、例外補上 `@param`、`@return`、`@throws`。既有註解保留，契約改變的部分同步更新。
 
@@ -92,7 +92,7 @@ RAG 需要先取得知識內容，才能搜尋片段並整理答案。SQuAD 將�
 
 ### 第三步 讀取檔案與解析 JSON
 
-參考 [`SearchBenchmarkServiceImpl`](../../src/main/java/com/unus/one/service/impl/SearchBenchmarkServiceImpl.java) 的建構式與 `searchJson()`，理解 `@Value`、`Path.of`、`Files.readString`、`readTree` 的順序。
+參考 [`SearchBenchmarkServiceImpl`](../../src/main/java/com/flow/one/service/impl/SearchBenchmarkServiceImpl.java) 的建構式與 `searchJson()`，理解 `@Value`、`Path.of`、`Files.readString`、`readTree` 的順序。
 
 只參考讀取與走訪方式。該 benchmark 會搜尋、截短預覽並略過部分不完整結構；本題要保留完整文章及嚴格檢查必要欄位，不照搬那些行為。
 
